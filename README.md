@@ -36,8 +36,7 @@ const questionBank = [
         options: ["Yes", "No", "Maybe so"],
         answer: "Yes",
     },
-];
-    
+];    
 ```
 
 ## Maps & References
@@ -51,7 +50,6 @@ The above code displays all entries present in an array *var*, which is an eleme
 The below code will print the value of the selected button in the console.
 
 ```
-
 function handleSelectOption(option) {
     console.log(option)
 }
@@ -61,21 +59,18 @@ return <div>
         <button className="option" onClick={() => handleSelectOption(option)}>{option}</button> 
     ))}
 </div>
-
 ```
 
 Note that if a button triggers a function which does not need parameters, code similarly to the following:
 
 ```
 <button onClick={goToPrev}> Previous </button>
-
 ```
 
 A new array can be set to the values of another with syntax like this:
 
 ```
 const newUserAnswers = [...userAnswers];
-
 ```
 
 ## Re-Rendering with Hooks and States
@@ -90,7 +85,6 @@ For example, a use-state hook goes as follows:
 import React, { useState } from "react";
 
 const [var, changeFunction] = useState([null or initVal]);
-
 ```
 
 To use this hook to update the website, we can display the currently selected button value using the code below.
@@ -112,5 +106,4 @@ return <div>
 
     <p> Option Selected: {optionSelected} </p>
 </div>
-
 ```
