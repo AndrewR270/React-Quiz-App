@@ -1,4 +1,5 @@
 import React, { use, useState } from "react";
+import Results from './results';
 
 function Quiz() {
     const questionBank = [
@@ -25,6 +26,10 @@ function Quiz() {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
 
+    const [isQuizFinished, setIsQuizFinished] = useState(false)
+    
+    const selectedAnswer = userAnswers[currentQuestion];
+
     function handleSelectOption(option) {
         const newUserAnswers = [...userAnswers];
         newUserAnswers[currentQuestion] = option;
@@ -32,10 +37,11 @@ function Quiz() {
     }
 
     function goToNext() {
-        if (currentQuestion < questionBank.length-1) {
+        if (currentQuestion === questionBank.length - 1) {
+            setIsQuizFinished(true); 
+        } else {
             setCurrentQuestion(currentQuestion + 1);
-        }
-    }
+    }}
 
     function goToPrev() {
         if (currentQuestion > 0) {
@@ -43,18 +49,29 @@ function Quiz() {
         }
     }
 
+    function restartQuiz() {
+        setUserAnswers(initialAnswers);
+        setCurrentQuestion(0);
+        setIsQuizFinished(false);
+    }
+
+    if (isQuizFinished) {
+        return <Results userAnswers={userAnswers} questionBank={questionBank} restartQuiz={restartQuiz}/>
+    }
+
     return <div>
         <h2> Question {currentQuestion+1} </h2>
-        <p>{questionBank.length}</p>
         <p className="question"> { questionBank[currentQuestion].question } </p>
         
         { questionBank[currentQuestion].options.map((option) => (
-           <button className="option" onClick={() => handleSelectOption(option)}>{option}</button> 
+           <button className={"option" + (selectedAnswer === option ? " selected" : "")} onClick={() => handleSelectOption(option)}>{option}</button> 
         ))}
 
         <div className="nav-buttons">
-            <button onClick={goToPrev}> Previous </button>
-            <button onClick={goToNext}> Next </button>
+            <button onClick={goToPrev} disabled={currentQuestion===0}> Previous </button>
+            <button onClick={goToNext} disabled={!selectedAnswer}> 
+                { currentQuestion === questionBank.length - 1 ? "Finish Quiz" : "Next" }
+            </button>
         </div>
     </div>
 }

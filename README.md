@@ -107,3 +107,68 @@ return <div>
     <p> Option Selected: {optionSelected} </p>
 </div>
 ```
+
+### Arrow Functions
+
+This provides a shorthand for braces and a return statement. Example:
+
+```
+function getScore() {
+    let finalScore = 0;
+
+    userAnswers.forEach((userAnswers, index) => {
+        if (answer === questionBank[index].answer) {
+            finalScore++;
+        }
+    });
+    return finalScore;
+}
+```
+
+In the above code, we loop to each element in userAnswers.The callback function in the method looks at each answer and index in userAnswers and checks to see if the answer at each index is equal to the one in the questionBank.
+
+## Ternary Operator Functions
+
+Use the following within **brackets** to implement logic into html code.
+
+```
+{ trueCondition ? trueResult : falseResult }
+```
+
+For example for changing the "Next" button text to "Finish Quiz" if on the last question:
+
+```
+{ currentQuestion === questionBank.length - 1 ? "Finish Quiz" : "Next" }
+```
+
+## Props
+
+**Child Functions** are called inside of other **"Parent"** functions.
+
+To pass a variable from parent to child, we use **props**, which are given on call. 
+
+````
+<Function prop={variable} />
+```
+
+Use the above code to write the prop. Example:
+
+```
+if (isQuizFinished) {
+    return <Results userAnswers={userAnswers}/>
+}
+```
+
+**Ensure that the props you pass are listed as parameters in the child function.** If we passed both the question bank and user answers to the results function, for example, we would write:
+
+```
+function Results(questionBank, userAnswers) {
+    return <div>
+        [Content]
+    </div>;
+}
+
+export default Results;
+```
+
+**Functions can also be passed as props.**
